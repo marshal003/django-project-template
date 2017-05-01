@@ -78,6 +78,7 @@ INSTALLED_APPS = [
     {% if cookiecutter.use_django_rest_framework_for_apis == 'y' %}
     'rest_framework',
     'rest_framework_swagger',
+    'rest_framework.authtoken',
     '{{cookiecutter.project_name}}.authentication',
     {% endif %}
 ]
