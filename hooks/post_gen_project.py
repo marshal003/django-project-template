@@ -146,6 +146,31 @@ def remove_celery():
         PROJECT_DIRECTORY, filename
     ))
 
+def remove_celery_configs():
+    """
+    Remove Celery Config files from .ebextensions
+    """
+    remove_file(os.path.join(
+        PROJECT_DIRECTORY, ".ebextensions", "celery_worker.txt"
+    ))
+
+def remove_celerybeat_configs():
+    """
+    Remove Celery Config files from .ebextensions
+    """
+    remove_file(os.path.join(
+        PROJECT_DIRECTORY, ".ebextensions", "celery_beat.txt"
+    ))
+
+
+def remove_cloudwatch_configs():
+    """
+    Remove cloud watch configs from .ebextensions
+    """
+    docs_dir_location = os.path.join(PROJECT_DIRECTORY, '.ebextensions', 'cwl-configs')
+    if os.path.exists(docs_dir_location):
+        shutil.rmtree(docs_dir_location)
+
 
 def perform_post_gen_action():
     """
@@ -161,6 +186,18 @@ def perform_post_gen_action():
     # Removes Elastic Beanstalk files
     if '{{ cookiecutter.use_elasticbeanstalk }}'.lower() != 'y':
         remove_elasticbeanstalk()
+    else:
+        # Removes celery beat configs
+        if '{{ cookiecutter.deploy_celerybeat_on_elasticbeanstalk }}'.lower() != 'y':
+            remove_celerybeat_configs()
+
+        # Removes celery worker configs
+        if '{{ cookiecutter.deploy_celery_on_elasticbeanstalk }}'.lower() != 'y':
+            remove_celery_configs()
+
+        # Removes cloudwatch configs
+        if '{{ cookiecutter.use_cloudwatch_logs }}'.lower() != 'y':
+            remove_cloudwatch_configs()
 
     # Removes travis-ci files
     if '{{ cookiecutter.use_travis_ci }}'.lower() != 'y':

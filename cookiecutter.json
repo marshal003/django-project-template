@@ -7,6 +7,10 @@
     "use_redis": "n",
     "use_heroku": "n",
     "use_elasticbeanstalk": "n",
+    "deploy_celerybeat_on_elasticbeanstalk": "n",
+    "deploy_celery_on_elasticbeanstalk": "n",
+    "ssl_only": "n",
+    "use_cloudwatch_logs": "n",
     "use_travis_ci": "n",
     "use_circle_ci": "n",
     "use_newrelic": "n"
